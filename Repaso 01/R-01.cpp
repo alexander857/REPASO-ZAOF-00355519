@@ -2,24 +2,39 @@
 #include<iostream>
 using namespace std;
 
-bool hasLetter(char letter, char array1[9], char array2[9]);
-void printArray(char array[9]);
-bool compareArray(char array1[9], char array2[9]);
+bool hasLetter(char letter, char* array1, char* array2, int sizeArray);
+void printArray(char* array, int sizeArray);
+bool compareArray(char* array1, char* array2, int sizeArray);
 
 int main(void){
-    char word[9] = {'c','o','d','i','f','i','c','a','r'};
-    char aux[9];
-    char letter;
-    int a = 13;
+ 	int size = 0;
+    char* word;
+    char* aux;
+    char letter, saveLetter;
+
+    cout << "Tamaño de la palabra: "; cin >> size;
+    int a = size + 3;
+    
+    word = new char[size];
+    aux = new char[size];
+    
+    cout << "Dijite la palabra: ";
+    
+    for(int i = 0; i < size; i++){
+    	
+    	cin >> saveLetter;
+    	word[i] = saveLetter;
+    	
+	}
 
     for(int i = 0; i < 9; i++){
         aux[9] = '_';
     }
 
-    cout << "La palabra contiene 9 letras" << endl;
+    cout << "La palabra contiene "<< size <<" letras" << endl;
     do{
-        cout << "Digite una letra: "; cin >> letter;
-        if(hasLetter(letter,word,aux) == true){
+        cout << "\n\nTurnos restantes " << a << ". Digite una letra: "; cin >> letter;
+        if(hasLetter(letter,word,aux,size) == true){
 
             cout << "La palabra si contiene la letra: " << letter << endl;
 
@@ -29,36 +44,36 @@ int main(void){
             cout << "La palabra no contiene la letra: " << letter << endl;
         }
 
-        printArray(aux);
+        printArray(aux, size);
 
-         if(compareArray(word, aux) == true){
+         if(compareArray(word, aux, size) == true){
 
-            cout << "Has adivinado la palabra" << endl;
+            cout << "\nHas adivinado la palabra" << endl;
             return 0;
 
         }
 
     }while(a > 0);
 
-
+    cout << "Lo siento, has perdido :(" << endl;
 
     return 0;
 }
 
-void printArray(char array[9]){
+void printArray(char* array, int sizeArray){
 
-    for(int i = 0; i < 9; i++){
+    for(int i = 0; i < sizeArray; i++){
         cout << array[i] << "\t";
     }
 
 }
 
-bool hasLetter(char letter, char array1[9], char array2[9]){
+bool hasLetter(char letter, char* array1, char* array2, int sizeArray){
 
     //bandera: es como un chekpoint para ir verificando algo
     bool flag = false;
 
-    for(int i = 0; i < 9; i++){
+    for(int i = 0; i < sizeArray; i++){
 
         if(array1[i] == letter){
             flag = true;
@@ -69,9 +84,9 @@ bool hasLetter(char letter, char array1[9], char array2[9]){
     return flag;
 }
 
-bool compareArray(char array1[9], char array2[9]){
+bool compareArray(char* array1, char* array2, int sizeArray){
 
-    for(int i = 0; i < 9; i++){
+    for(int i = 0; i < sizeArray; i++){
 
         if(array1[i] != array2[i]){
             return false;
